@@ -1,7 +1,5 @@
-(
-echo build/
-echo *.bin
-echo *.elf
-echo *.img
-echo *.o
-) > .gitignore
+build/
+*.bin
+*.elf
+*.img
+*.o

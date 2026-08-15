@@ -34,32 +34,35 @@ void screen_clear(void)
     cursor_column = 0;
 }
 
+void screen_put_char(char character)
+{
+    if (character == '\n')
+    {
+        cursor_column = 0;
+        cursor_row++;
+        return;
+    }
+
+    int index =
+        (cursor_row * VGA_WIDTH + cursor_column) * 2;
+
+    video[index] = character;
+    video[index + 1] = color;
+
+    cursor_column++;
+
+    if (cursor_column >= VGA_WIDTH)
+    {
+        cursor_column = 0;
+        cursor_row++;
+    }
+}
+
 void screen_print(const char* text)
 {
     while (*text)
     {
-        if (*text == '\n')
-        {
-            cursor_column = 0;
-            cursor_row++;
-            text++;
-            continue;
-        }
-
-        int index =
-            (cursor_row * VGA_WIDTH + cursor_column) * 2;
-
-        video[index] = *text;
-        video[index + 1] = color;
-
-        cursor_column++;
-
-        if (cursor_column >= VGA_WIDTH)
-        {
-            cursor_column = 0;
-            cursor_row++;
-        }
-
+        screen_put_char(*text);
         text++;
     }
 }
