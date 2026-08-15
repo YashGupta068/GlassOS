@@ -1,27 +1,17 @@
-void kernel_main()
+void kernel_main(void)
 {
-    char* video = (char*)0xB8000;
+    volatile char* video = (volatile char*)0xB8000;
 
-    video[0] = 'G';
-    video[1] = 0x0F;
+    const char* message = "Hello from GlassOS Kernel!";
 
-    video[2] = 'l';
-    video[3] = 0x0F;
+    for (int i = 0; message[i] != '\0'; i++)
+    {
+        video[i * 2] = message[i];
+        video[i * 2 + 1] = 0x0F;
+    }
 
-    video[4] = 'a';
-    video[5] = 0x0F;
-
-    video[6] = 's';
-    video[7] = 0x0F;
-
-    video[8] = 's';
-    video[9] = 0x0F;
-
-    video[10] = 'O';
-    video[11] = 0x0F;
-
-    video[12] = 'S';
-    video[13] = 0x0F;
-
-    while (1);
+    while (1)
+    {
+        __asm__ volatile ("hlt");
+    }
 }
