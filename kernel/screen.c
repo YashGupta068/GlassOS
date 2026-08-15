@@ -40,6 +40,12 @@ void screen_put_char(char character)
     {
         cursor_column = 0;
         cursor_row++;
+
+        if (cursor_row >= VGA_HEIGHT)
+        {
+            cursor_row = VGA_HEIGHT - 1;
+        }
+
         return;
     }
 
@@ -55,7 +61,26 @@ void screen_put_char(char character)
     {
         cursor_column = 0;
         cursor_row++;
+
+        if (cursor_row >= VGA_HEIGHT)
+        {
+            cursor_row = VGA_HEIGHT - 1;
+        }
     }
+}
+
+void screen_backspace(void)
+{
+    if (cursor_column == 0)
+        return;
+
+    cursor_column--;
+
+    int index =
+        (cursor_row * VGA_WIDTH + cursor_column) * 2;
+
+    video[index] = ' ';
+    video[index + 1] = color;
 }
 
 void screen_print(const char* text)

@@ -38,6 +38,7 @@ char keyboard_get_char(void)
 
             switch (scancode)
             {
+                /* Numbers */
                 case 0x02: return '1';
                 case 0x03: return '2';
                 case 0x04: return '3';
@@ -49,6 +50,7 @@ char keyboard_get_char(void)
                 case 0x0A: return '9';
                 case 0x0B: return '0';
 
+                /* QWERTY row */
                 case 0x10: return 'q';
                 case 0x11: return 'w';
                 case 0x12: return 'e';
@@ -60,6 +62,7 @@ char keyboard_get_char(void)
                 case 0x18: return 'o';
                 case 0x19: return 'p';
 
+                /* Home row */
                 case 0x1E: return 'a';
                 case 0x1F: return 's';
                 case 0x20: return 'd';
@@ -70,6 +73,7 @@ char keyboard_get_char(void)
                 case 0x25: return 'k';
                 case 0x26: return 'l';
 
+                /* Bottom row */
                 case 0x2C: return 'z';
                 case 0x2D: return 'x';
                 case 0x2E: return 'c';
@@ -78,9 +82,17 @@ char keyboard_get_char(void)
                 case 0x31: return 'n';
                 case 0x32: return 'm';
 
-                case 0x39: return ' ';
+                /* Space */
+                case 0x39:
+                    return ' ';
 
-                case 0x1C: return '\n';
+                /* Backspace */
+                case 0x0E:
+                    return '\b';
+
+                /* Enter */
+                case 0x1C:
+                    return '\n';
 
                 default:
                     break;
